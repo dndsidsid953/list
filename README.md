@@ -1,1 +1,155 @@
-# prompt
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>오늘의 할 일</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: #f9f8f6;
+      color: #222;
+    }
+
+    header {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      padding: 60px 0 30px;
+      color: #222;
+    }
+
+    .gallery {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .gallery img {
+      width: 250px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .todo-container {
+      background-color: #ffffff;
+      max-width: 500px;
+      margin: auto;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+    }
+
+    .todo-container h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      outline: none;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      background-color: #f4f4f4;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.2s;
+    }
+
+    li.completed {
+      text-decoration: line-through;
+      color: #aaa;
+    }
+
+    button {
+      background: none;
+      border: none;
+      color: #ff5c5c;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      color: #d33;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 13px;
+      color: #aaa;
+      padding: 40px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <header>오늘의 할 일</header>
+
+  <div class="gallery">
+    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80" alt="무채색 책상">
+    <img src="https://images.unsplash.com/photo-1616628182504-6c3406c2b983?auto=format&fit=crop&w=600&q=80" alt="앰버 보틀">
+    <img src="https://images.unsplash.com/photo-1600585154154-42436b2ba4f5?auto=format&fit=crop&w=600&q=80" alt="화병과 창가">
+  </div>
+
+  <div class="todo-container">
+    <h2>할 일 목록</h2>
+    <input type="text" id="todo-input" placeholder="할 일을 입력하고 Enter를 눌러보세요">
+    <ul id="todo-list"></ul>
+  </div>
+
+  <footer>© 2025 감성 TODO</footer>
+
+  <script>
+    const input = document.getElementById('todo-input');
+    const list = document.getElementById('todo-list');
+
+    input.addEventListener('keypress', function (e) {
+      if (e.key === 'Enter' && input.value.trim() !== '') {
+        const li = document.createElement('li');
+        li.textContent = input.value;
+
+        li.addEventListener('click', () => li.classList.toggle('completed'));
+
+        const delBtn = document.createElement('button');
+        delBtn.textContent = '삭제';
+        delBtn.onclick = (event) => {
+          event.stopPropagation();
+          li.remove();
+        };
+
+        li.appendChild(delBtn);
+        list.appendChild(li);
+        input.value = '';
+      }
+    });
+  </script>
+
+</body>
+</html>
